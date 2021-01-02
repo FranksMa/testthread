@@ -15,5 +15,5 @@ fn main() {
     let b = 3;
 
     assert_eq!(math(sum, a, b), 5);
-    assert_eq!(math(product, a, b), 6)
+    assert_eq!(math(product, a, b), 6);
 }
