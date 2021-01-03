@@ -1,20 +1,51 @@
-use std::fmt::Debug;
+struct Duck;
+struct Pig;
 
-fn match_option<T: Debug>(o: Option<T>) {
-    match o {
-        Some(i) => println!("{:?}", i),
-        None => println!("nothing"),
+// 特征
+trait Fly{
+    // 具备该特征的行为
+    fn fly(&self) -> bool;
+    fn is_wings(&self);
+}
+impl Fly for Duck {
+
+    fn fly(&self) -> bool {
+        return true;
     }
+
+    fn is_wings(&self) {
+        println!("I have a wing");
+    }
+
 }
 
-fn main(){
-    let a:Option<i32> = Some(3);
-    let b:Option<&str> = Some("hello");
-    let c:Option<char> = Some('A');
-    let d:Option<u32> = None;
+impl Fly for Pig {
 
-    match_option(a);
-    match_option(b);
-    match_option(c);
-    match_option(d);
+    fn fly(&self) -> bool {
+        return false;
+    }
+
+    fn is_wings(&self) {
+        println!("I don't have a wing");
+    }
+
+}
+
+// 静态分发
+fn fly_static<T: Fly>(s: T) -> bool {
+    s.fly()
+}
+// 动态分发
+fn fly_dyn(s: &dyn Fly) -> bool {
+    s.fly()
+}
+
+fn main() {
+    let pig = Pig;
+    assert_eq!(fly_static::<Pig>(pig),false);
+
+    let duck = Duck;
+    assert_eq!(fly_static::<Duck>(duck),true);
+    assert_eq!(fly_dyn(&Pig),false);
+    assert_eq!(fly_dyn(&Duck),true);
 }
