@@ -1,19 +1,20 @@
-pub fn math(op: fn(i32, i32) -> i32, a: i32, b: i32) -> i32 {
-    op(a, b)
+use std::fmt::Debug;
+
+fn match_option<T: Debug>(o: Option<T>) {
+    match o {
+        Some(i) => println!("{:?}", i),
+        None => println!("nothing"),
+    }
 }
 
-fn sum(a: i32, b: i32) -> i32 {
-    a + b
-}
+fn main(){
+    let a:Option<i32> = Some(3);
+    let b:Option<&str> = Some("hello");
+    let c:Option<char> = Some('A');
+    let d:Option<u32> = None;
 
-fn product(a: i32, b: i32) -> i32 {
-    a * b
-}
-
-fn main() {
-    let a = 2;
-    let b = 3;
-
-    assert_eq!(math(sum, a, b), 5);
-    assert_eq!(math(product, a, b), 6);
+    match_option(a);
+    match_option(b);
+    match_option(c);
+    match_option(d);
 }
