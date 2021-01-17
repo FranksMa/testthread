@@ -45,7 +45,7 @@ pub fn notify(item: impl Summary) {
 }
 
 
-// 返回一个 trait
+// 返回一个 trait 不知道能干啥。。。
 fn returns_summarizable() -> impl Summary {
     Tweet {
         username: String::from("horse_ebooks"),
