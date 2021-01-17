@@ -1,18 +1,18 @@
 use std::thread;
 use std::time::Duration;
 
-fn spawn_function() {
-    for i in 0..5 {
-        println!("spawned thread print {}", i);
-        thread::sleep(Duration::from_millis(1));
-    }
-}
-
 fn main() {
-    thread::spawn(spawn_function);
+    let handle = thread::spawn(|| {
+        for i in 0..5 {
+            println!("spawned thread print {}", i);
+            thread::sleep(Duration::from_millis(1));
+        }
+    });
 
     for i in 0..3 {
         println!("main thread print {}", i);
         thread::sleep(Duration::from_millis(1));
     }
+    // 强制子线程结束后再结束主线程
+    handle.join().unwrap();
 }
