@@ -44,6 +44,17 @@ pub fn notify(item: impl Summary) {
     println!("Breaking news {}",item.summarize());
 }
 
+
+// 返回一个 trait
+fn returns_summarizable() -> impl Summary {
+    Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+        reply: false,
+        retweet: false,
+    }
+}
+
 fn main() {
     let tweet = Tweet {
         username: String::from("horse_ebooks"),
@@ -75,5 +86,7 @@ fn main() {
 
     notify(tweet);
 
-    
+
+
+
 }
